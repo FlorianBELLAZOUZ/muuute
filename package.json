@@ -1,5 +1,5 @@
 {
-  "name": "styleee",
+  "name": "muuute",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,13 +8,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/FlorianBELLAZOUZ/styleee.git"
+    "url": "git+https://github.com/FlorianBELLAZOUZ/muuute.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/FlorianBELLAZOUZ/styleee/issues"
+    "url": "https://github.com/FlorianBELLAZOUZ/muuute/issues"
   },
-  "homepage": "https://github.com/FlorianBELLAZOUZ/styleee#readme"
+  "homepage": "https://github.com/FlorianBELLAZOUZ/muuute#readme"
 }
