@@ -1,14 +1,14 @@
 Muuute
 ------
-Mutate object in a css style
+**Mutate object in a css style**
 
-/!\ Work in Progress
+*/!\ Work in Progress*
 
 Install
 ------
 
 ```
-npm i -S styleee
+npm i -S muuute
 ```
 
 Get starting
@@ -82,7 +82,7 @@ Key:Object :: {
 Ease:Function :: in:Number BetweenZeroAndOne=>out:Number BetweenZeroAndOne
 
 Relative:String :: '+139' | '-34'
-``
+```
 
 Exemples
 ------
