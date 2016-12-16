@@ -1,10 +1,11 @@
 {
   "name": "muuute",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha -w -b",
+    "E2EPixiSquare": "cd test/E2E/pixi-square && webpack pixi-square.js pixi-square-bundle.js && static-server -p 80"
   },
   "repository": {
     "type": "git",
@@ -16,5 +17,15 @@
   "bugs": {
     "url": "https://github.com/FlorianBELLAZOUZ/muuute/issues"
   },
-  "homepage": "https://github.com/FlorianBELLAZOUZ/muuute#readme"
+  "homepage": "https://github.com/FlorianBELLAZOUZ/muuute#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0",
+    "pixi.js": "^4.2.3",
+    "static-server": "^2.0.3",
+    "webpack": "^1.14.0"
+  },
+  "dependencies": {
+    "tween.js": "^16.3.5"
+  }
 }
