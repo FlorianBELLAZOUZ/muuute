@@ -1,9 +1,9 @@
 const Should = require('chai').Should()
 const Linear = require('tween.js').Easing.Linear.None
 const Transition = require('../lib/transition')
-const {log,forEach} = require('../lib/funcs')
+const {log,forEach,assign} = require('../lib/funcs')
 
-const assign = Object.assign
+const style = {x:0,y:0,opacity:1}
 
 const transition = [
   {duration:1000},
@@ -12,7 +12,20 @@ const transition = [
   {duration:2000,property:'all'},
 ]
 
+const test = func=>e=>func(e.input).should.be.deep.equal(e.output,JSON.stringify(e.input))
+const tests = func=>expected=>forEach(test(func))(expected)
+
 describe('transition',()=>{
+  it('.needTween should return',()=>{
+
+    const expected = [
+      {input:assign({},style),output:false},
+      {input:assign({},style,{transition:[]}),output:true},
+    ]
+
+    tests(Transition.needTween)(expected)
+  })
+
   it('.toDefault should return',()=>{
     const standart = {delay:0,duration:0,property:['all'],easing:Linear}
 
@@ -60,9 +73,6 @@ describe('transition',()=>{
 
 describe('transition.private',()=>{
   const private = Transition.private
-
-  const test = func=>e=>func(e.input).should.be.deep.equal(e.output)
-  const tests = func=>expected=>forEach(test(func))(expected)
 
   const transitionOne = Transition.toDefault(transition)
   const transitionTwo = [
