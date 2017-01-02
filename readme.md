@@ -56,27 +56,22 @@ Class:Object :: {
 }
 
 Transition:Object :: {
-  delay:Number Positive Integer,
   duration:Number Positive Integer,
-  property:String,
+  property:String|ArrayString|'all',
   ease:Ease
+  delay:Number Positive Integer,
 }
 
 Animation:Object :: {
-  key:Key,
-  play:Boolean,
-  ease:Ease,
-  delay:Number Positive Integer,
-  direction:'normal'|'reverse'|'alternate'|'alternate-reverse',
+  property:String,
+  key:ArrayNumber|ArrayRelative,
   duration:Number Positive Integer,
-  fill:'none'|'forwards'|'backwards'|'both',
   iterations:Number Positive Integer,
-}
-
-Key:Object :: {
-  0:{*:Number|Relative|Object},
-  ...,
-  100:{*:Number|Relative|Object},
+  delay:Number Positive Integer,
+  direction:'normal'|'alternate',
+  interpolation:'linear'|'bezier'|'catmullrom',
+  play:Boolean,
+  fill:'none'|'forwards'|'backwards'|'both',
 }
 
 Ease:Function :: in:Number BetweenZeroAndOne=>out:Number BetweenZeroAndOne
