@@ -64,7 +64,7 @@ Transition:Object :: {
 
 Animation:Object :: {
   property:String,
-  key:ArrayNumber|ArrayRelative,
+  keys:ArrayNumber|ArrayRelative,
   duration:Number Positive Integer,
   iterations:Number Positive Integer,
   delay:Number Positive Integer,

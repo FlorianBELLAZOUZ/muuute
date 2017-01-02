@@ -1,9 +1,9 @@
 const Should = require('chai').Should()
 const Animation = require('../lib/animation')
-const {assign} = require('../lib/transition')
+const {assign,log} = require('../lib/funcs')
 
 describe('animation', ()=>{
-  describe.only('.toDefault :: animations:ArrayAnimation=>animations:ArrayAnimation',()=>{
+  describe('.toDefault :: animations:ArrayAnimation=>animations:ArrayAnimation',()=>{
     it('should return',()=>{
       const standard = {
         duration:1000,
@@ -18,12 +18,12 @@ describe('animation', ()=>{
       const animations = [
         {
           property:'x',
-          key:[10,-19,300],
+          keys:[10,-19,300],
           duration:100,
         },
         {
           property:'y',
-          key:['10','-300'],
+          keys:['10','-300'],
         },
         {property:'sdf',},
         {},
@@ -34,14 +34,11 @@ describe('animation', ()=>{
         assign({},standard,animations[0]),
         assign({},standard,animations[1]),
       ]
-
       Animation.toDefault(animations).should.be.deep.equal(expected)
     })
   })
 
   describe.skip('.toTween :: animations:ArrayAnimation=>tweens:ArrayTween',()=>{
-    it('should mute',()=>{
-
-    })
+    it('should mute')
   })
 })
