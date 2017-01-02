@@ -1,5 +1,6 @@
 const {needTween,toDefault,splitAll,addTargetValue,addNoTransitionValue} = require('./lib/transition')
-const {assign} = require('./lib/funcs')
+const {assign,forEach} = require('./lib/funcs')
+const Tween = require('tween.js')
 
 // mute :: (el:Object, ...styles:ArrayObject)=>el:Object
 // morph the elements to the target style with transitions or animations
@@ -19,12 +20,27 @@ const style = (el,...styles)=>{
   return assign({},el,{__style__:style.transition})
 }
 
-// TODO
-const muteStyled = el=>{}
+// mergeStyle :: el:Object=>el:Object
+// mute the styled element (use the function style before)
+const muteStyled = el=>{
+  if(!el.__style__) throw 'muteStyled need a styled object'
 
-// TODO
-// mergeStyle :: el:Object=>newEl:Object=>el:Object
-// return a object with style override by the newEl
-const mergeStyle = el=>newEl=>el
+  const func = style=>{
+    if(style.duration==0) return el[style.property] = style.targetValue
 
-module.exports = {mute,style}
+    new Tween
+      .Tween(el)
+      .to({[style.property]:style.targetValue},style.duration)
+      .delay(style.delay)
+      .easing(style.easing)
+      .start()
+  }
+
+  forEach(func)(el.__style__)
+}
+
+// update :: time:Number Positive Integer => time:Number Positive Integer
+// update the transition and animations
+const update = Tween.update
+
+module.exports = {mute,style,muteStyled,update}

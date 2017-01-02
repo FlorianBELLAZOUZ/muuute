@@ -119,4 +119,28 @@ describe('public', ()=>{
       Mute.style(obj,style).should.be.deep.equal(expected)
     })
   })
+
+  describe('.muteStyled',()=>{
+    it('should return',done=>{
+      const style = [
+        {delay:0,duration:0,property:'text',easing:Linear,targetValue:'ok'},
+        {delay:0,duration:0,property:'y',easing:Linear,targetValue:200},
+        {delay:0,duration:20,property:'x',easing:Linear,targetValue:100},
+      ]
+      const obj = {x:0,y:0,__style__:style}
+
+      Mute.muteStyled(obj)
+      Mute.update()
+
+      const test = ()=>{
+        Mute.update()
+        obj.x.should.be.equal(100)
+        obj.y.should.be.equal(200)
+        obj.text.should.be.equal('ok')
+        done()
+      }
+
+      setTimeout(test,50)
+    })
+  })
 })
