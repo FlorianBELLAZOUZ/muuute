@@ -91,7 +91,7 @@ Pixi.js
 ------
 ```
 const Pixi = require('pixi.js')
-const {mute} = require('muuute')
+const {style,update} = require('muuute')
 
 const renderer = Pixi.autoDetectRenderer(1000,1000)
 
@@ -106,13 +106,14 @@ square.drawRect(-50,-50,100,100)
 square.position = {x:500,y:500}
 
 square.interactive = true
-square.mouseover = ()=>mute(square,big,transition)
-square.mousedown = ()=>mute(square,little,transition)
-square.mouseup = ()=>mute(square,big,transition)
-square.mouseout = ()=>mute(square,normal,transition)
+square.mouseover = ()=>style(square,big,transition)
+square.mousedown = ()=>style(square,little,transition)
+square.mouseup = ()=>style(square,big,transition)
+square.mouseout = ()=>style(square,normal,transition)
 
 const frame = ()=>{
   requestAnimationFrame(frame)
+  update()
   renderer.render(square)
 }
 

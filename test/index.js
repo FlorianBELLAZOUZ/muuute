@@ -121,7 +121,7 @@ describe('public', ()=>{
   })
 
   describe('.muteStyled',()=>{
-    it('should return',done=>{
+    it('should return',()=>{
       const style = [
         {delay:0,duration:0,property:'text',easing:Linear,targetValue:'ok'},
         {delay:0,duration:0,property:'y',easing:Linear,targetValue:200},
@@ -130,17 +130,10 @@ describe('public', ()=>{
       const obj = {x:0,y:0,__style__:style}
 
       Mute.muteStyled(obj)
-      Mute.update()
-
-      const test = ()=>{
-        Mute.update()
-        obj.x.should.be.equal(100)
-        obj.y.should.be.equal(200)
-        obj.text.should.be.equal('ok')
-        done()
-      }
-
-      setTimeout(test,50)
+      Mute.update(10**10)
+      obj.x.should.be.equal(100)
+      obj.y.should.be.equal(200)
+      obj.text.should.be.equal('ok')
     })
   })
 })
