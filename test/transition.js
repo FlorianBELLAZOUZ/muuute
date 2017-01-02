@@ -17,7 +17,6 @@ const tests = func=>expected=>forEach(test(func))(expected)
 
 describe('transition',()=>{
   it('.needTween should return',()=>{
-
     const expected = [
       {input:assign({},style),output:false},
       {input:assign({},style,{transition:[]}),output:true},
@@ -68,6 +67,20 @@ describe('transition',()=>{
     ]
 
     Transition.addTargetValue(style).should.be.deep.equal(expected)
+  })
+
+  it('.addNoTransitionValue should return',()=>{
+    const style = {x:0,y:0,opacity:1,transition:[
+        {delay:10,duration:1000,property:'opacity',easing:Linear},
+      ]
+    }
+    const expected = [
+      {delay:10,duration:1000,property:'opacity',easing:Linear},
+      {delay:0,duration:0,property:'x',easing:Linear},
+      {delay:0,duration:0,property:'y',easing:Linear},
+    ]
+
+    Transition.addNoTransitionValue(style).should.be.deep.equal(expected)
   })
 })
 
