@@ -65,7 +65,7 @@ Transition:Object :: {
 Animation:Object :: {
   key:Key,
   play:Boolean,
-  easeg:Ease,
+  ease:Ease,
   delay:Number Positive Integer,
   direction:'normal'|'reverse'|'alternate'|'alternate-reverse',
   duration:Number Positive Integer,
