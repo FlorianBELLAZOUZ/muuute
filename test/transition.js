@@ -40,6 +40,22 @@ describe('transition',()=>{
 
     Transition.splitAll(style).should.be.deep.equal(expected)
   })
+
+  it('.addTargetValue should return',()=>{
+    const style = {x:0,y:0,opacity:1,transition:[
+        {delay:10,duration:1000,property:'opacity',easing:Linear},
+        {delay:100,duration:20,property:'y',easing:Linear},
+        {delay:100,duration:20,property:'x',easing:Linear},
+      ]
+    }
+    const expected = [
+      {delay:10,duration:1000,property:'opacity',easing:Linear,targetValue:1},
+      {delay:100,duration:20,property:'y',easing:Linear,targetValue:0},
+      {delay:100,duration:20,property:'x',easing:Linear,targetValue:0},
+    ]
+
+    Transition.addTargetValue(style).should.be.deep.equal(expected)
+  })
 })
 
 describe('transition.private',()=>{
