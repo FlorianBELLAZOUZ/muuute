@@ -56,6 +56,18 @@ describe('animation', ()=>{
       obj.y.should.be.equal(-290)
     })
 
+    it.skip('should mute nested object',()=>{
+      let obj = {scale:{x:0,y:0}}
+
+      const animations = [
+        assign({},standard,{property:'scale.x',keys:[100,200]}),
+      ]
+
+      Animation.toTween(animations)(obj)
+      Mute.update(10**20)
+      obj.scale.x.should.be.equal(200)
+    })
+
     it('should iterate',()=>{
       let obj = {x:0,y:0}
 

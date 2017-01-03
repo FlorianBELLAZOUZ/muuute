@@ -121,7 +121,7 @@ describe('public', ()=>{
   })
 
   describe('.muteStyled',()=>{
-    it('should return',()=>{
+    it('should mute',()=>{
       const style = [
         {delay:0,duration:0,property:'text',easing:Linear,targetValue:'ok'},
         {delay:0,duration:0,property:'y',easing:Linear,targetValue:200},
@@ -134,6 +134,19 @@ describe('public', ()=>{
       obj.x.should.be.equal(100)
       obj.y.should.be.equal(200)
       obj.text.should.be.equal('ok')
+    })
+
+    it('should mute nested object',()=>{
+      const style = [
+        {delay:0,duration:100,property:'scale.x',easing:Linear,targetValue:200},
+        {delay:0,duration:0,property:'scale.y',easing:Linear,targetValue:200},
+      ]
+      const obj = {scale:{x:0,y:0},__style__:style}
+
+      Mute.muteStyled(obj)
+      obj.scale.y.should.be.equal(200)
+      Mute.update(10**10)
+      obj.scale.x.should.be.equal(200)
     })
   })
 })

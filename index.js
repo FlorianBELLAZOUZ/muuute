@@ -1,5 +1,5 @@
 const {needTween,toDefault,splitAll,addTargetValue,addNoTransitionValue} = require('./lib/transition')
-const {assign,forEach} = require('./lib/funcs')
+const {assign,forEach,applyWithPath} = require('./lib/funcs')
 const Tween = require('tween.js')
 
 // mute :: (el:Object, ...styles:ArrayObject)=>el:Object
@@ -26,7 +26,7 @@ const muteStyled = el=>{
   if(!el.__style__) throw 'muteStyled need a styled object'
 
   const func = style=>{
-    if(style.duration==0) return el[style.property] = style.targetValue
+    if(style.duration==0) return applyWithPath(style.property)(el)(style.targetValue)
 
     new Tween
       .Tween(el)
