@@ -43,4 +43,9 @@ const muteStyled = el=>{
 // update the transition and animations
 const update = Tween.update
 
-module.exports = {mute,style,muteStyled,update}
+// stopAll :: undefined=>undefined
+// stopAll running transitions & animations
+const stopAll = Tween.removeAll
+
+
+module.exports = {mute,style,muteStyled,update,stopAll}

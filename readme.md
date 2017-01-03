@@ -29,6 +29,7 @@ Api
 ```
 mute :: el:Object => class:ArrayClass => el:Object
 update :: time:Number Positive Integer => time:Number Positive Integer
+stopAll :: undefined=>undefined
 
 Ease:Object :: {
   Linear:{None}
@@ -68,7 +69,6 @@ Animation:Object :: {
   duration:Number Positive Integer,
   iterations:Number Positive Integer,
   delay:Number Positive Integer,
-  direction:'normal'|'alternate',
   interpolation:'linear'|'bezier'|'catmullrom',
   play:Boolean,
   fill:'none'|'forwards'|'backwards'|'both',
