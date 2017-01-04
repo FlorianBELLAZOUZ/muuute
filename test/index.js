@@ -8,7 +8,7 @@ describe('public', ()=>{
     const obj = {x:100,y:100,opacity:0,scale:{x:0,y:0}}
 
     it('should return',()=>{
-      const style = {x:0,y:0,opacity:1,transition:[{duration:200,property:'x'}]}
+      const style = {x:0,y:0,opacity:1,transitions:[{duration:200,property:'x'}]}
 
       const expectedStyle = [
         {delay:0,duration:200,property:'x',easing:Linear,targetValue:0},
@@ -35,7 +35,7 @@ describe('public', ()=>{
     })
 
     it('should return',()=>{
-      const style = {x:0,y:0,transition:[{duration:200,property:['x','y']}]}
+      const style = {x:0,y:0,transitions:[{duration:200,property:['x','y']}]}
 
       const expectedStyle = [
         {delay:0,duration:200,property:'y',easing:Linear,targetValue:0},
@@ -47,7 +47,7 @@ describe('public', ()=>{
     })
 
     it('should return',()=>{
-      const style = {x:0,y:0,transition:[{duration:200,property:['all']}]}
+      const style = {x:0,y:0,transitions:[{duration:200,property:['all']}]}
 
       const expectedStyle = [
         {delay:0,duration:200,property:'y',easing:Linear,targetValue:0},
@@ -59,7 +59,7 @@ describe('public', ()=>{
     })
 
     it('should return',()=>{
-      const style = {x:0,y:0,transition:[{duration:200,property:'all'}]}
+      const style = {x:0,y:0,transitions:[{duration:200,property:'all'}]}
 
       const expectedStyle = [
         {delay:0,duration:200,property:'y',easing:Linear,targetValue:0},
@@ -71,7 +71,7 @@ describe('public', ()=>{
     })
 
     it('should return',()=>{
-      const style = {x:0,y:0,transition:[{duration:400},{duration:200,property:'x'}]}
+      const style = {x:0,y:0,transitions:[{duration:400},{duration:200,property:'x'}]}
 
       const expectedStyle = [
         {delay:0,duration:200,property:'x',easing:Linear,targetValue:0},
@@ -83,7 +83,7 @@ describe('public', ()=>{
     })
 
     it('should return',()=>{
-      const style = {x:0,y:0,transition:[{duration:200,property:'z'}]}
+      const style = {x:0,y:0,transitions:[{duration:200,property:'z'}]}
 
       const expectedStyle = [
         {delay:0,duration:0,property:'x',easing:Linear,targetValue:0},
@@ -152,11 +152,9 @@ describe('public', ()=>{
         }
       ]
 
-      const transition = [
-        {duration:100,property:'scale.y',}
-      ]
+      const transitions = [{duration:100,property:'scale.y',}]
 
-      const style = {'scale.y':42,animations,transition}
+      const style = {'scale.y':42,animations,transitions}
 
       const expectedStyle = [
         {
@@ -210,13 +208,9 @@ describe('public', ()=>{
         }
       ]
 
-      const transition = [
-        {
-          duration:100
-        }
-      ]
+      const transitions = [{duration:100}]
 
-      const style = {'scale.x':0,'scale.y':0,animations,transition}
+      const style = {'scale.x':0,'scale.y':0,animations,transitions}
 
       const expectedStyle = [
         {property:'scale.x',keys:[100,200,100],duration:2000,

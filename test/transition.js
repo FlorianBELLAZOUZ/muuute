@@ -19,7 +19,7 @@ describe('transition',()=>{
   it('.needTween should return',()=>{
     const expected = [
       {input:assign({},style),output:false},
-      {input:assign({},style,{transition:[]}),output:true},
+      {input:assign({},style,{transitions:[]}),output:true},
     ]
 
     tests(Transition.needTween)(expected)
@@ -39,7 +39,7 @@ describe('transition',()=>{
   })
 
   it('.splitAll should return',()=>{
-    const style = {x:0,y:0,opacity:1,transition:[
+    const style = {x:0,y:0,opacity:1,transitions:[
       {delay:100,duration:20,property:['all'],easing:Linear},
       {delay:10,duration:1000,property:['opacity'],easing:Linear},
       {delay:10,duration:1000,property:['alpha'],easing:Linear},
@@ -54,7 +54,7 @@ describe('transition',()=>{
   })
 
   it('.addTargetValue should return',()=>{
-    const style = {x:0,y:0,opacity:1,transition:[
+    const style = {x:0,y:0,opacity:1,transitions:[
         {delay:10,duration:1000,property:'opacity',easing:Linear},
         {delay:100,duration:20,property:'y',easing:Linear},
         {delay:100,duration:20,property:'x',easing:Linear},
@@ -70,7 +70,7 @@ describe('transition',()=>{
   })
 
   it('.addNoTransitionValue should return',()=>{
-    const style = {x:0,y:0,opacity:1,transition:[
+    const style = {x:0,y:0,opacity:1,transitions:[
         {delay:10,duration:1000,property:'opacity',easing:Linear},
       ]
     }

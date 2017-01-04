@@ -17,7 +17,7 @@ Get starting
 ```
 const {class} = require('style')
 
-const down = {y:100, transition:{duration:1000}}
+const down = {y:100, transitions:[{duration:1000}]}
 
 let a = {x:0,y:0}
 
@@ -52,7 +52,7 @@ Objects utility
 ```
 Class:Object :: {
   *:Number|Relative|Object,
-  transition:ArrayTransition|transition,
+  transitions:ArrayTransition|transition,
   animations:ArrayAnimation|animation
 }
 
@@ -90,7 +90,7 @@ const {style,update} = require('muuute')
 
 const renderer = Pixi.autoDetectRenderer(1000,1000)
 
-const transition = {transition:{duration:1000}}
+const transition = {transitions:[{duration:1000}]}
 const little = {scale:{x:0.5,y:0.5}}
 const big = {scale:{x:2,y:2}}
 const normal = {scale:{x:1,y:1}}

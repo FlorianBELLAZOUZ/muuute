@@ -18,14 +18,14 @@ const mute = (el,...styles)=>{
 const style = (el,...styles)=>{
   const style = assign.apply(0,styles)
 
-  style.transition = toDefault(style.transition)
-  style.transition = splitAll(style)
-  style.transition = addNoTransitionValue(style)
-  style.transition = addTargetValue(style)
+  style.transitions = toDefault(style.transitions)
+  style.transitions = splitAll(style)
+  style.transitions = addNoTransitionValue(style)
+  style.transitions = addTargetValue(style)
 
   style.animations = Animation.toDefault(style.animations)
 
-  let __style__ = concat(style.animations)(style.transition)
+  let __style__ = concat(style.animations)(style.transitions)
   __style__ = uniqBy(pick('property'))(__style__)
 
   return assign({},el,{__style__})
