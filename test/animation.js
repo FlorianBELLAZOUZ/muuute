@@ -56,7 +56,7 @@ describe('animation', ()=>{
       obj.y.should.be.equal(-290)
     })
 
-    it.skip('should mute nested object',()=>{
+    it('should mute nested object',()=>{
       let obj = {scale:{x:0,y:0}}
 
       const animations = [
