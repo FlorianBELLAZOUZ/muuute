@@ -1,5 +1,5 @@
 const {needTween,toDefault,splitAll,addTargetValue,addNoTransitionValue,
-isTransition} = require('./lib/transition')
+isTransition,filterUseless} = require('./lib/transition')
 const Transition = require('./lib/transition')
 const Animation = require('./lib/animation')
 const {log,assign,forEach,applyWithPath,concat,pick,uniqBy,
@@ -22,6 +22,7 @@ const style = (el,...styles)=>{
   style.transitions = splitAll(style)
   style.transitions = addNoTransitionValue(style)
   style.transitions = addTargetValue(style)
+  style.transitions = filterUseless(style.transitions)(el)
 
   style.animations = Animation.toDefault(style.animations)
 

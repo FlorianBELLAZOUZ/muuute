@@ -108,11 +108,11 @@ describe('public', ()=>{
     })
 
     it('should return',()=>{
-      const style = {'scale.x':0,'scale.y':0}
+      const style = {'scale.x':100,'scale.y':100}
 
       const expectedStyle = [
-        {delay:0,duration:0,property:'scale.y',easing:Linear,targetValue:0},
-        {delay:0,duration:0,property:'scale.x',easing:Linear,targetValue:0},
+        {delay:0,duration:0,property:'scale.y',easing:Linear,targetValue:100},
+        {delay:0,duration:0,property:'scale.x',easing:Linear,targetValue:100},
       ]
       const expected = assign({},obj,{__style__:expectedStyle})
 
@@ -183,14 +183,14 @@ describe('public', ()=>{
         }
       ]
 
-      const style = {'scale.x':0,'scale.y':0,animations}
+      const style = {'scale.x':0,'scale.y':100,animations}
 
       const expectedStyle = [
         {property:'scale.x',keys:[100,200,100],duration:2000,
-        iterations:Infinity,delay:0,interpolation:'catmullrom',
-        play:true,fill:'forwards',},
-        {delay:0,duration: 0,property: 'scale.y',easing:Linear,
-        targetValue: 0}
+          iterations:Infinity,delay:0,interpolation:'catmullrom',
+          play:true,fill:'forwards',},
+        {delay:0,duration:0,property:'scale.y',easing:Linear,
+          targetValue:100}
       ]
 
       const expected = assign({},obj,{__style__:expectedStyle})
@@ -210,19 +210,31 @@ describe('public', ()=>{
 
       const transitions = [{duration:100}]
 
-      const style = {'scale.x':0,'scale.y':0,animations,transitions}
+      const style = {'scale.x':0,'scale.y':100,animations,transitions}
 
       const expectedStyle = [
         {property:'scale.x',keys:[100,200,100],duration:2000,
-        iterations:Infinity,delay:0,interpolation:'catmullrom',
-        play:true,fill:'forwards',},
-        {delay:0,duration:100,property: 'scale.y',easing:Linear,
-        targetValue: 0}
+          iterations:Infinity,delay:0,interpolation:'catmullrom',
+          play:true,fill:'forwards',},
+        {delay:0,duration:100,property:'scale.y',easing:Linear,
+          targetValue:100}
       ]
 
       const expected = assign({},obj,{__style__:expectedStyle})
 
       Mute.style(obj,style).should.be.deep.equal(expected)
+    })
+
+    it('should return empty style',()=>{
+
+      const obj = {scale:{x:0,y:0}}
+      const transitions = [{duration:100}]
+
+      const style = {'scale.x':0,'scale.y':0,transitions}
+
+      const expectedStyle = []
+
+      Mute.style(obj,style).__style__.should.be.deep.equal([])
     })
   })
 
