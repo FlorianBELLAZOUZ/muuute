@@ -50,7 +50,7 @@ describe('animation', ()=>{
         assign({},standard,animations[1]),
       ]
 
-      Animation.toTween(animationsMute)(obj)
+      Animation.toTween(obj)(animationsMute)
       Mute.update(10**20)
       obj.x.should.be.equal(300)
       obj.y.should.be.equal(-290)
@@ -63,7 +63,7 @@ describe('animation', ()=>{
         assign({},standard,{property:'scale.x',keys:[100,200]}),
       ]
 
-      Animation.toTween(animations)(obj)
+      Animation.toTween(obj)(animations)
       Mute.update(10**20)
       obj.scale.x.should.be.equal(200)
     })
@@ -76,7 +76,7 @@ describe('animation', ()=>{
         iterations:Infinity,duration}),
       ]
 
-      Animation.toTween(animations)(obj)
+      Animation.toTween(obj)(animations)
       Mute.update(Tween.now()+duration*1)
       Mute.update(Tween.now()+duration*2)
       Mute.update(Tween.now()+duration*2.5)
@@ -92,7 +92,7 @@ describe('animation', ()=>{
         assign({},standard,{property:'x',keys:[100,200],duration,delay}),
       ]
 
-      const tweens = Animation.toTween(animations)(obj)
+      const tweens = Animation.toTween(obj)(animations)
       Mute.update(Tween.now()+delay*0.5)
       obj.x.should.be.equal(0)
       Mute.update(Tween.now()+delay+duration)

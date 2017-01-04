@@ -1,8 +1,9 @@
 const {needTween,toDefault,splitAll,addTargetValue,addNoTransitionValue,
 isTransition} = require('./lib/transition')
+const Transition = require('./lib/transition')
 const Animation = require('./lib/animation')
 const {log,assign,forEach,applyWithPath,concat,pick,uniqBy,
-  filter,} = require('./lib/funcs')
+  filter,comp,} = require('./lib/funcs')
 const Tween = require('tween.js')
 
 // mute :: (el:Object, ...styles:ArrayObject)=>el:Object
@@ -16,6 +17,7 @@ const mute = (el,...styles)=>{
 // return a object with key __style__ that contain all datas to mute/animate it
 const style = (el,...styles)=>{
   const style = assign.apply(0,styles)
+
   style.transition = toDefault(style.transition)
   style.transition = splitAll(style)
   style.transition = addNoTransitionValue(style)
@@ -29,27 +31,16 @@ const style = (el,...styles)=>{
   return assign({},el,{__style__})
 }
 
-// mergeStyle :: el:Object=>el:Object
+// muteStyled :: el:Object=>el:Object
 // mute the styled element (use the function style before)
 const muteStyled = el=>{
   if(!el.__style__) throw new Error('muteStyled need a styled object')
+  const style = pick('__style__')(el)
 
-  const func = animation=>{
-    if(animation.duration==0) return applyWithPath(animation.property)(el)(animation.targetValue)
+  Animation.toTween(el)(style)
+  Transition.toTween(el)(style)
 
-    new Tween
-      .Tween(el)
-      .to({[animation.property]:animation.targetValue},animation.duration)
-      .delay(animation.delay)
-      .easing(animation.easing)
-      .start()
-  }
-
-  const transitions = filter(isTransition)(el.__style__)
-  const animations = filter(Animation.isAnimation)(el.__style__)
-
-  forEach(func)(transitions)
-  Animation.toTween(animations)(el)
+  return el
 }
 
 // update :: time:Number Positive Integer => time:Number Positive Integer
