@@ -53,7 +53,7 @@ Objects utility
 Class:Object :: {
   *:Number|Relative|Object,
   transition:ArrayTransition|transition,
-  animation:ArrayAnimation|animation
+  animations:ArrayAnimation|animation
 }
 
 Transition:Object :: {

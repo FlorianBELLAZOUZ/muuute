@@ -1,5 +1,8 @@
-const {needTween,toDefault,splitAll,addTargetValue,addNoTransitionValue} = require('./lib/transition')
-const {assign,forEach,applyWithPath} = require('./lib/funcs')
+const {needTween,toDefault,splitAll,addTargetValue,addNoTransitionValue,
+isTransition} = require('./lib/transition')
+const Animation = require('./lib/animation')
+const {log,assign,forEach,applyWithPath,concat,pick,uniqBy,
+  filter,} = require('./lib/funcs')
 const Tween = require('tween.js')
 
 // mute :: (el:Object, ...styles:ArrayObject)=>el:Object
@@ -17,26 +20,36 @@ const style = (el,...styles)=>{
   style.transition = splitAll(style)
   style.transition = addNoTransitionValue(style)
   style.transition = addTargetValue(style)
-  return assign({},el,{__style__:style.transition})
+
+  style.animations = Animation.toDefault(style.animations)
+
+  let __style__ = concat(style.animations)(style.transition)
+  __style__ = uniqBy(pick('property'))(__style__)
+
+  return assign({},el,{__style__})
 }
 
 // mergeStyle :: el:Object=>el:Object
 // mute the styled element (use the function style before)
 const muteStyled = el=>{
-  if(!el.__style__) throw 'muteStyled need a styled object'
+  if(!el.__style__) throw new Error('muteStyled need a styled object')
 
-  const func = style=>{
-    if(style.duration==0) return applyWithPath(style.property)(el)(style.targetValue)
+  const func = animation=>{
+    if(animation.duration==0) return applyWithPath(animation.property)(el)(animation.targetValue)
 
     new Tween
       .Tween(el)
-      .to({[style.property]:style.targetValue},style.duration)
-      .delay(style.delay)
-      .easing(style.easing)
+      .to({[animation.property]:animation.targetValue},animation.duration)
+      .delay(animation.delay)
+      .easing(animation.easing)
       .start()
   }
 
-  forEach(func)(el.__style__)
+  const transitions = filter(isTransition)(el.__style__)
+  const animations = filter(Animation.isAnimation)(el.__style__)
+
+  forEach(func)(transitions)
+  Animation.toTween(animations)(el)
 }
 
 // update :: time:Number Positive Integer => time:Number Positive Integer

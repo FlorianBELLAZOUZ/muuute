@@ -118,6 +118,118 @@ describe('public', ()=>{
 
       Mute.style(obj,style).should.be.deep.equal(expected)
     })
+
+    it('should return',()=>{
+      const animations = [
+        {
+          property:'scale.x',
+          keys:[100,200,100],
+          duration:2000,
+          iterations:Infinity,
+        }
+      ]
+
+      const style = {animations}
+
+      const expectedStyle = [
+        {property:'scale.x',keys:[100,200,100],duration:2000,
+        iterations:Infinity,delay:0,interpolation:'catmullrom',
+        play:true,fill:'forwards',}
+      ]
+
+      const expected = assign({},obj,{__style__:expectedStyle})
+
+      Mute.style(obj,style).should.be.deep.equal(expected)
+    })
+
+    it('should return',()=>{
+      const animations = [
+        {
+          property:'scale.x',
+          keys:[100,200,100],
+          duration:2000,
+          iterations:Infinity,
+        }
+      ]
+
+      const transition = [
+        {duration:100,property:'scale.y',}
+      ]
+
+      const style = {'scale.y':42,animations,transition}
+
+      const expectedStyle = [
+        {
+          property:'scale.x',keys:[100,200,100],duration:2000,
+          iterations:Infinity,delay:0,interpolation:'catmullrom',
+          play:true,fill:'forwards',
+        },
+        {
+          delay:0,duration:100,property:'scale.y',easing:Linear,
+          targetValue:42
+        },
+      ]
+
+      const expected = assign({},obj,{__style__:expectedStyle})
+
+      Mute.style(obj,style).should.be.deep.equal(expected)
+    })
+
+    it('should return',()=>{
+      const animations = [
+        {
+          property:'scale.x',
+          keys:[100,200,100],
+          duration:2000,
+          iterations:Infinity,
+        }
+      ]
+
+      const style = {'scale.x':0,'scale.y':0,animations}
+
+      const expectedStyle = [
+        {property:'scale.x',keys:[100,200,100],duration:2000,
+        iterations:Infinity,delay:0,interpolation:'catmullrom',
+        play:true,fill:'forwards',},
+        {delay:0,duration: 0,property: 'scale.y',easing:Linear,
+        targetValue: 0}
+      ]
+
+      const expected = assign({},obj,{__style__:expectedStyle})
+
+      Mute.style(obj,style).should.be.deep.equal(expected)
+    })
+
+    it('should return',()=>{
+      const animations = [
+        {
+          property:'scale.x',
+          keys:[100,200,100],
+          duration:2000,
+          iterations:Infinity,
+        }
+      ]
+
+      const transition = [
+        {
+          duration:100
+        }
+      ]
+
+      const style = {'scale.x':0,'scale.y':0,animations,transition}
+
+      const expectedStyle = [
+        {property:'scale.x',keys:[100,200,100],duration:2000,
+        iterations:Infinity,delay:0,interpolation:'catmullrom',
+        play:true,fill:'forwards',},
+        {delay:0,duration:100,property: 'scale.y',easing:Linear,
+        targetValue: 0}
+      ]
+
+      const expected = assign({},obj,{__style__:expectedStyle})
+
+      Mute.style(obj,style).should.be.deep.equal(expected)
+    })
   })
 
   describe('.muteStyled',()=>{
@@ -147,6 +259,22 @@ describe('public', ()=>{
       obj.scale.y.should.be.equal(200)
       Mute.update(10**10)
       obj.scale.x.should.be.equal(200)
+    })
+
+    it('should mute nested object with animations',()=>{
+      const style = [
+        {property:'scale.x',keys:[100,200,100],duration:200,
+        iterations:1,delay:0,interpolation:'catmullrom',
+        play:true,fill:'forwards',},
+        {delay:0,duration:100,property:'scale.y',easing:Linear,
+        targetValue: 20}
+      ]
+      const obj = {scale:{x:0,y:0},__style__:style}
+
+      Mute.muteStyled(obj)
+      Mute.update(10**10)
+      obj.scale.y.should.be.equal(20)
+      obj.scale.x.should.be.equal(100)
     })
   })
 })
