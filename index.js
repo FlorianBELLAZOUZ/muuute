@@ -53,4 +53,4 @@ const stopAll = Tween.removeAll
 // return true when a element need an update
 const muted = ()=>!!Tween.getAll().length
 
-module.exports = {mute,style,muteStyled,update,stopAll}
+module.exports = {mute,style,muteStyled,update,stopAll,muted}
