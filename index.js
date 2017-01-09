@@ -8,10 +8,7 @@ const Tween = require('tween.js')
 
 // mute :: (el:Object, ...styles:ArrayObject)=>el:Object
 // morph the elements to the target style with transitions or animations
-const mute = (el,...styles)=>{
-  const style = assign.apply(0,styles)
-  if(!needTween(style)) return assign(el,style)
-}
+const mute = (el,...styles)=>muteStyled(style(el,...styles))
 
 // style :: (el:Object, ...styles:ArrayObject)=>el:Object
 // return a object with key __style__ that contain all datas to mute/animate it
@@ -29,7 +26,7 @@ const style = (el,...styles)=>{
   let __style__ = concat(style.animations)(style.transitions)
   __style__ = uniqBy(pick('property'))(__style__)
 
-  return assign({},el,{__style__})
+  return assign(el,{__style__})
 }
 
 // muteStyled :: el:Object=>el:Object
@@ -52,5 +49,8 @@ const update = Tween.update
 // stopAll running transitions & animations
 const stopAll = Tween.removeAll
 
+// muted :: undefined=>Boolean
+// return true when a element need an update
+const muted = ()=>!!Tween.getAll().length
 
 module.exports = {mute,style,muteStyled,update,stopAll}

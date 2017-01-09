@@ -1,7 +1,10 @@
 const Should = require('chai').Should()
-const Linear = require('tween.js').Easing.Linear.None
+const Tween = require('tween.js')
+const Linear = Tween.Easing.Linear.None
 const Mute = require('..')
 const {log,assign} = require('../lib/funcs')
+
+afterEach(Mute.stopAll)
 
 describe('public', ()=>{
   describe('.style',()=>{
@@ -262,8 +265,8 @@ describe('public', ()=>{
       const obj = {scale:{x:0,y:0},__style__:style}
 
       Mute.muteStyled(obj)
-      obj.scale.y.should.be.equal(200)
       Mute.update(10**10)
+      obj.scale.y.should.be.equal(200)
       obj.scale.x.should.be.equal(200)
     })
 
@@ -281,6 +284,44 @@ describe('public', ()=>{
       Mute.update(10**10)
       obj.scale.y.should.be.equal(20)
       obj.scale.x.should.be.equal(100)
+    })
+  })
+
+  describe('.mute',()=>{
+    it('should mute noTransition value with Tween',()=>{
+      const style = {x:100,y:0}
+
+      let obj = {x:0,y:0}
+
+      Mute.mute(obj,style)
+
+      Tween.getAll().length.should.be.equal(1)
+      Mute.update(10**10)
+      obj.x.should.be.equal(100)
+    })
+
+    it('should mute value not inTransition and not inObject with Tween',()=>{
+      const style = {x:100,y:0,text:'ok'}
+
+      let obj = {x:0,y:0}
+
+      Mute.mute(obj,style)
+
+      Tween.getAll().length.should.be.equal(2)
+      Mute.update(10**10)
+      obj.x.should.be.equal(100)
+      obj.text.should.be.equal('ok')
+    })
+
+    it('should mute string',()=>{
+      const style = {x:0,y:0,text:'ok'}
+
+      let obj = {x:0,y:0,text:'nice'}
+
+      Mute.mute(obj,style)
+
+      Mute.update(10**10)
+      obj.text.should.be.equal('ok')
     })
   })
 })
