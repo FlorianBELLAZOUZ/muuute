@@ -323,5 +323,45 @@ describe('public', ()=>{
       Mute.update(10**10)
       obj.text.should.be.equal('ok')
     })
+
+    it('should mute a alreadyStyled value',()=>{
+      const styleOn = {x:0,y:0}
+      const styleOff = {x:0,y:-100}
+
+      let obj = {x:0,y:0}
+
+      Mute.mute(obj,styleOff)
+      Mute.mute(obj,styleOn)
+
+      Mute.update(10**10)
+      obj.y.should.be.equal(0)
+    })
+
+    it('should mute a alreadyStyled value',()=>{
+      const styleOn = {x:0,y:0}
+      const styleOff = {x:0,y:-100}
+
+      let obj = {x:0,y:0}
+
+      Mute.mute(obj,styleOn)
+      Mute.mute(obj,styleOff)
+
+      Mute.update(10**10)
+      obj.y.should.be.equal(-100)
+    })
+
+    it('should mute a alreadyStyled value',()=>{
+      const styleOn = {x:0,y:0}
+      const styleOff = {x:0,y:-100}
+
+      let obj = {x:0,y:0}
+
+      Mute.mute(obj,styleOn)
+      Mute.mute(obj,styleOff)
+      Mute.mute(obj,styleOn)
+
+      Mute.update(10**10)
+      obj.y.should.be.equal(0)
+    })
   })
 })
