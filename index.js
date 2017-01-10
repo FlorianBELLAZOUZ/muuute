@@ -19,7 +19,6 @@ const style = (el,...styles)=>{
   style.transitions = splitAll(style)
   style.transitions = addNoTransitionValue(style)
   style.transitions = addTargetValue(style)
-  style.transitions = filterUseless(style.transitions)(el)
 
   style.animations = Animation.toDefault(style.animations)
 

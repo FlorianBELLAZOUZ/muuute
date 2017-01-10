@@ -227,18 +227,6 @@ describe('public', ()=>{
 
       Mute.style(obj,style).should.be.deep.equal(expected)
     })
-
-    it('should return empty style',()=>{
-
-      const obj = {scale:{x:0,y:0}}
-      const transitions = [{duration:100}]
-
-      const style = {'scale.x':0,'scale.y':0,transitions}
-
-      const expectedStyle = []
-
-      Mute.style(obj,style).__style__.should.be.deep.equal([])
-    })
   })
 
   describe('.muteStyled',()=>{
@@ -295,7 +283,7 @@ describe('public', ()=>{
 
       Mute.mute(obj,style)
 
-      Tween.getAll().length.should.be.equal(1)
+      Tween.getAll().length.should.be.equal(2)
       Mute.update(10**10)
       obj.x.should.be.equal(100)
     })
@@ -307,7 +295,7 @@ describe('public', ()=>{
 
       Mute.mute(obj,style)
 
-      Tween.getAll().length.should.be.equal(2)
+      Tween.getAll().length.should.be.equal(3)
       Mute.update(10**10)
       obj.x.should.be.equal(100)
       obj.text.should.be.equal('ok')
