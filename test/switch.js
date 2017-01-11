@@ -10,7 +10,7 @@ describe.only('.switchKernelByProp',()=>{
     const runningTween = undefined
     const newStyle = undefined
 
-    const newEl = Switch.kernelByProp(oldValue,newStyle,runningTween)
+    const newEl = Switch.kernelByProp(el,'x',oldValue,newStyle,runningTween)
     newEl.x.should.be.equal(10)
   })
 
@@ -22,7 +22,7 @@ describe.only('.switchKernelByProp',()=>{
     const newStyle = undefined
 
     runningTween.update(20)
-    const newEl = Switch.kernelByProp(oldValue,newStyle,runningTween)
+    const newEl = Switch.kernelByProp(el,'x',oldValue,newStyle,runningTween)
     newEl.x.should.be.equal(20)
     runningTween.update(50)
     newEl.x.should.be.equal(50)
@@ -36,7 +36,7 @@ describe.only('.switchKernelByProp',()=>{
     const newStyle = undefined
 
     runningTween.update(20)
-    const newEl = Switch.kernelByProp(oldValue,newStyle,runningTween)
+    const newEl = Switch.kernelByProp(el,'x',oldValue,newStyle,runningTween)
     newEl.x.should.be.equal(20)
     runningTween.update(50)
     newEl.x.should.be.equal(50)
