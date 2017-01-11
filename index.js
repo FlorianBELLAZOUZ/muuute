@@ -34,6 +34,13 @@ const muteStyled = el=>{
   if(!el.__style__) throw new Error('muteStyled need a styled object')
   const style = pick('__style__')(el)
 
+  return muteStyle(el)(style)
+}
+
+
+// muteStyle :: el:Object=>style:Object=>el:Object
+// mute element with style
+const muteStyle = el=>style=>{
   Animation.toTween(el)(style)
   Transition.toTween(el)(style)
 
@@ -52,4 +59,4 @@ const stopAll = Tween.removeAll
 // return true when a element need an update
 const muted = ()=>!!Tween.getAll().length
 
-module.exports = {mute,style,muteStyled,update,stopAll,muted}
+module.exports = {mute,style,muteStyled,update,stopAll,muted,muteStyle}
