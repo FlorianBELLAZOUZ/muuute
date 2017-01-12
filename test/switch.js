@@ -3,6 +3,22 @@ const Switch = require('../lib/switch')
 const Should = require('chai').Should()
 const Tween = require('tween.js')
 
+describe.only('.kernel :: el=>properties=>oldValues=>newStyle=>runningTweens=>el',()=>{
+  const properties = ['x','y','scale.x','scale.y']
+
+  it('should apply old value',()=>{
+    let el = {x:0,y:0}
+
+    const oldValues = {x:100,y:100}
+    const runningTweens = undefined
+    const newStyles = undefined
+
+    const newEl = Switch.kernel(el,properties,oldValues,newStyles,runningTweens)
+    newEl.should.be.deep.equal(oldValues)
+    el.should.be.equal(newEl)
+  })
+})
+
 describe('.kernelByProp :: el=>property=>oldValue=>newStyle=>runningTween=>el',()=>{
   afterEach(Tween.removeAll)
 
