@@ -4,6 +4,7 @@ const Should = require('chai').Should()
 const Tween = require('tween.js')
 
 describe.only('.kernel :: el=>properties=>oldEl=>newStyle=>runningTweens=>el',()=>{
+  afterEach(Tween.removeAll)
   const properties = ['x','y','scale.x','scale.y']
 
   it('should apply old value',()=>{
@@ -55,6 +56,30 @@ describe.only('.kernel :: el=>properties=>oldEl=>newStyle=>runningTweens=>el',()
     Tween.update(10**10)
     newEl.x.should.be.equal(100)
     newEl.y.should.be.equal(0)
+  })
+
+  it('should transfert running tween',()=>{
+    let el = {x:0,y:0}
+
+    const oldEl = {x:0,y:100}
+    const runningTweens = [
+      new Tween.Tween(oldEl).to({x:100},100).start(0),
+      new Tween.Tween(oldEl).to({y:0},100).start(0),
+    ]
+    const newStyles = [
+      {delay:0,duration:100,property:'x',easing:Linear,targetValue:-100},
+      {delay:0,duration:100,property:'y',easing:Linear,targetValue:-100},
+    ]
+
+    runningTweens.forEach(tween=>tween.update(20))
+    const newEl = Switch.kernel(el,properties,oldEl,newStyles,runningTweens)
+    Tween.getAll().length.should.be.equal(2)
+
+    newEl.x.should.be.equal(20)
+    newEl.y.should.be.equal(80)
+    Tween.update(10**10)
+    newEl.x.should.be.equal(-100)
+    newEl.y.should.be.equal(-100)
   })
 })
 
