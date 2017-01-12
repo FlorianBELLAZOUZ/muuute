@@ -3,7 +3,7 @@ const Switch = require('../lib/switch')
 const Should = require('chai').Should()
 const Tween = require('tween.js')
 
-describe.only('.switchKernelByProp',()=>{
+describe('.switchKernelByProp',()=>{
   afterEach(Tween.removeAll)
 
   it('should apply old value',()=>{
