@@ -17,6 +17,45 @@ describe.only('.kernel :: el=>properties=>oldEl=>newStyle=>runningTweens=>el',()
     newEl.should.be.deep.equal(oldValues)
     el.should.be.equal(newEl)
   })
+
+  it('should apply running style and transfertTween',()=>{
+    let el = {x:0,y:100}
+
+    const oldEl = {x:0,y:100}
+    const runningTweens = [
+      new Tween.Tween(oldEl).to({y:0},100).start(0),
+      new Tween.Tween(oldEl).to({x:100},100).start(0),
+    ]
+    const newStyles = undefined
+
+    runningTweens.forEach(tween=>tween.update(20))
+    const newEl = Switch.kernel(el,properties,oldEl,newStyles,runningTweens)
+    newEl.x.should.be.equal(20)
+    newEl.y.should.be.equal(80)
+    runningTweens.forEach(tween=>tween.update(60))
+    newEl.x.should.be.equal(60)
+    newEl.y.should.be.equal(40)
+  })
+
+  it('should apply old value and create newTween',()=>{
+    let el = {x:0,y:0}
+
+    const oldEl = {x:0,y:100}
+    const runningTweens = undefined
+    const newStyles = [
+      {delay:0,duration:100,property:'x',easing:Linear,targetValue:100},
+      {delay:0,duration:100,property:'y',easing:Linear,targetValue:0},
+    ]
+
+    const newEl = Switch.kernel(el,properties,oldEl,newStyles,runningTweens)
+    Tween.getAll().length.should.be.equal(2)
+
+    newEl.x.should.be.equal(0)
+    newEl.y.should.be.equal(100)
+    Tween.update(10**10)
+    newEl.x.should.be.equal(100)
+    newEl.y.should.be.equal(0)
+  })
 })
 
 describe('.kernelByProp :: el=>property=>oldValue=>newStyle=>runningTween=>el',()=>{
@@ -104,7 +143,7 @@ describe('.kernelByProp :: el=>property=>oldValue=>newStyle=>runningTween=>el',(
     newEl.x.should.be.equal(100)
   })
 
-it('should apply runningTween and remove runningTween and create new Tween',()=>{
+  it('should apply runningTween and remove runningTween and create new Tween',()=>{
     let el = {x:-20,y:0}
 
     const oldValue = 0
