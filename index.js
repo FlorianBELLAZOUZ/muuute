@@ -61,4 +61,4 @@ const muted = ()=>!!Tween.getAll().length
 
 module.exports = {mute,style,muteStyled,update,stopAll,muted,muteStyle}
 
-module.exports.switch = require('switch').switch
+module.exports.switch = require('./lib/switch').switch
