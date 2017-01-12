@@ -63,12 +63,12 @@ describe.only('.kernel :: el=>properties=>oldEl=>newStyle=>runningTweens=>el',()
 
     const oldEl = {x:0,y:100}
     const runningTweens = [
-      new Tween.Tween(oldEl).to({x:100},100).start(0),
       new Tween.Tween(oldEl).to({y:0},100).start(0),
+      new Tween.Tween(oldEl).to({x:100},100).start(0),
     ]
     const newStyles = [
-      {delay:0,duration:100,property:'x',easing:Linear,targetValue:100},
       {delay:0,duration:100,property:'y',easing:Linear,targetValue:0},
+      {delay:0,duration:100,property:'x',easing:Linear,targetValue:100},
     ]
 
     runningTweens.forEach(tween=>tween.update(20))
