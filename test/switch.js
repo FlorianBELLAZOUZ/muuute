@@ -4,6 +4,8 @@ const Should = require('chai').Should()
 const Tween = require('tween.js')
 
 describe.only('.switchKernelByProp',()=>{
+  afterEach(Tween.removeAll)
+
   it('should apply old value',()=>{
     let el = {x:0,y:0}
 
@@ -44,7 +46,6 @@ describe.only('.switchKernelByProp',()=>{
   })
 
   it('should apply old value and create newTween',()=>{
-    Tween.removeAll()
     let el = {x:30,y:0}
 
     const oldValue = 0
@@ -59,7 +60,6 @@ describe.only('.switchKernelByProp',()=>{
   })
 
   it('should create newTween',()=>{
-    Tween.removeAll()
     let el = {x:30,y:0}
 
     const oldValue = undefined
@@ -68,6 +68,21 @@ describe.only('.switchKernelByProp',()=>{
 
     const newEl = Switch.kernelByProp(el,'x',oldValue,newStyle,runningTween)
     Tween.getAll().length.should.be.equal(1)
+    newEl.x.should.be.equal(30)
+    Tween.update(10**10)
+    newEl.x.should.be.equal(100)
+  })
+
+  it('should transfert running tween',()=>{
+    let el = {x:30,y:0}
+
+    const oldValue = 0
+    const runningTween = new Tween.Tween({x:0}).to({x:100},100).start(0)
+    const newStyle = {delay:0,duration:100,property:'x',easing:Linear,targetValue:100}
+
+    const newEl = Switch.kernelByProp(el,'x',oldValue,newStyle,runningTween)
+    Tween.getAll().length.should.be.equal(1)
+    runningTween.update(30)
     newEl.x.should.be.equal(30)
     Tween.update(10**10)
     newEl.x.should.be.equal(100)
