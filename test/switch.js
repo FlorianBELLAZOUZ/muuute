@@ -87,4 +87,19 @@ describe.only('.switchKernelByProp',()=>{
     Tween.update(10**10)
     newEl.x.should.be.equal(100)
   })
+
+it('should apply runningTween and remove runningTween and create new Tween',()=>{
+    let el = {x:-20,y:0}
+
+    const oldValue = 0
+    const runningTween = new Tween.Tween({x:0}).to({x:100},100).start(0)
+    const newStyle = {delay:0,duration:100,property:'x',easing:Linear,targetValue:-100}
+
+    runningTween.update(30)
+    const newEl = Switch.kernelByProp(el,'x',oldValue,newStyle,runningTween)
+    Tween.getAll().length.should.be.equal(1)
+    newEl.x.should.be.equal(30)
+    Tween.update(10**10)
+    newEl.x.should.be.equal(-100)
+  })
 })
