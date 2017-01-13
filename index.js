@@ -6,7 +6,7 @@ const {log,assign,forEach,applyWithPath,concat,pick,uniqBy,
   filter,comp,} = require('./lib/funcs')
 const Tween = require('tween.js')
 
-let activate = true
+let isActivate = true
 
 // mute :: (el:Object, ...styles:ArrayObject)=>el:Object
 // morph the elements to the target style with transitions or animations
@@ -43,7 +43,7 @@ const muteStyled = el=>{
 // muteStyle :: el:Object=>style:Object=>el:Object
 // mute element with style
 const muteStyle = el=>style=>{
-  if(!activate) return
+  if(!isActivate) return
 
   Animation.toTween(el)(style)
   Transition.toTween(el)(style)
@@ -64,10 +64,10 @@ const stopAll = Tween.removeAll
 const muted = ()=>!!Tween.getAll().length
 
 // desactivate
-const desactivate = ()=>activate=false
+const desactivate = ()=>isActivate=false
 
 // activate
-const activate = ()=>activate=true
+const activate = ()=>isActivate=true
 
 module.exports = {mute,style,muteStyled,update,stopAll,muted,muteStyle,
 desactivate,activate}
