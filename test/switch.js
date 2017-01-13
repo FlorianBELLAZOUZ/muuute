@@ -3,7 +3,7 @@ const Switch = require('../lib/switch')
 const Should = require('chai').Should()
 const Tween = require('tween.js')
 
-describe.only('.kernel :: el=>properties=>oldEl=>newStyle=>runningTweens=>el',()=>{
+describe('.kernel :: el=>properties=>oldEl=>newStyle=>runningTweens=>el',()=>{
   afterEach(Tween.removeAll)
   const properties = ['x','y','scale.x','scale.y']
 
