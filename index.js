@@ -69,6 +69,7 @@ const desactivate = ()=>activate=false
 // activate
 const activate = ()=>activate=true
 
-module.exports = {mute,style,muteStyled,update,stopAll,muted,muteStyle,}
+module.exports = {mute,style,muteStyled,update,stopAll,muted,muteStyle,
+desactivate,activate}
 
 module.exports.switch = require('./lib/switch').switch
