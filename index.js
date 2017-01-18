@@ -72,4 +72,5 @@ const activate = ()=>isActivate=true
 module.exports = {mute,style,muteStyled,update,stopAll,muted,muteStyle,
 desactivate,activate}
 
+module.exports.Easing = Tween.Easing
 module.exports.switch = require('./lib/switch').switch
