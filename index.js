@@ -3,14 +3,17 @@ isTransition,filterUseless} = require('./lib/transition')
 const Transition = require('./lib/transition')
 const Animation = require('./lib/animation')
 const {log,assign,forEach,applyWithPath,concat,pick,uniqBy,
-  filter,comp,} = require('./lib/funcs')
+  filter,comp,isArray,} = require('./lib/funcs')
 const Tween = require('tween.js')
 
 let isActivate = true
 
 // mute :: (el:Object, ...styles:ArrayObject)=>el:Object
 // morph the elements to the target style with transitions or animations
-const mute = (el,...styles)=>muteStyled(style(el,...styles))
+const mute = (el,...styles)=>{
+  if(isArray(el)) return el.map(el=>muteStyled(style(el,...styles)))
+  if(!isArray(el)) return muteStyled(style(el,...styles))
+}
 
 // style :: (el:Object, ...styles:ArrayObject)=>el:Object
 // return a object with key __style__ that contain all datas to mute/animate it

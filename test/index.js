@@ -351,5 +351,15 @@ describe('public', ()=>{
       Mute.update(10**10)
       obj.y.should.be.equal(0)
     })
+
+    it('should mute a array of element',()=>{
+      const styleOff = {x:0,y:-100}
+      let objs = [{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},{x:0,y:0},]
+
+      Mute.mute(objs,styleOff)
+      Mute.update(10**10)
+
+      objs.forEach(obj=>obj.y.should.be.equal(-100))
+    })
   })
 })
