@@ -62,6 +62,14 @@ const update = Tween.update
 // stopAll running transitions & animations
 const stopAll = Tween.removeAll
 
+// stop :: obj=>undefined
+// stop running transitions & animations of an object
+const stop = obj=>{
+  Tween.getAll()
+    .filter(tween=>tween.getObject()===obj)
+    .forEach(Tween.remove)
+}
+
 // muted :: undefined=>Boolean
 // return true when a element need an update
 const muted = ()=>!!Tween.getAll().length
@@ -73,7 +81,7 @@ const desactivate = ()=>isActivate=false
 const activate = ()=>isActivate=true
 
 module.exports = {mute,style,muteStyled,update,stopAll,muted,muteStyle,
-desactivate,activate}
+desactivate,activate,stop}
 
 module.exports.Easing = Tween.Easing
 module.exports.switch = require('./lib/switch').switch
